@@ -1,10 +1,12 @@
 // Externals import
 const express = require('express');
 
+
 // internal imports
 const { getUsers } = require('../../controller/usersController');
 const htmlResponse = require('../../middlewares/common/htmlResponse');
 const avatarUpload = require('../../middlewares/users/avatarUpload');
+const { addUserValidators } = require('../../middlewares/users/userValidators');
 
 const router = express.Router();
 
@@ -13,7 +15,7 @@ const router = express.Router();
 router.get('/', htmlResponse("Users"), getUsers);
 
 // add new user
-router.post('/', avatarUpload)
+router.post('/', avatarUpload, addUserValidators)
 
 
 
