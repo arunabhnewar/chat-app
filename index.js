@@ -4,7 +4,9 @@ const dotenv = require('dotenv');
 const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require('cookie-parser');
-
+const loginRouter = require('./router/login/loginRouter');
+const usersRouter = require('./router/users/usersRouter');
+const inboxRouter = require('./router/inbox/inboxRouter');
 
 // Intrenal imports
 const { notFoundHandler, errorHandler } = require('./middlewares/common/errorHandler');
@@ -34,6 +36,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 // routing setup
+app.use('/', loginRouter);       // login router
+app.use('/users', usersRouter);   // user router
+app.use('/inbox', inboxRouter);   // inbox router
 
 
 
