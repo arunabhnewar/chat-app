@@ -1,8 +1,6 @@
 // get user page
 function getUsers(req, res, next) {
-    res.render('pages/users', {
-        title: "Users - Chat Application",
-    })
+    res.render('pages/users')
 };
 
 // module exports
