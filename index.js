@@ -1,8 +1,14 @@
+// External imports
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require('cookie-parser');
+
+
+// Intrenal imports
+const { notFoundHandler, errorHandler } = require('./middlewares/common/errorHandler');
+
 
 
 // express app initialization
@@ -44,6 +50,15 @@ async function chatApp() {
         console.log(error)
     }
 };
+
+
+
+// 404 not found handler
+app.use(notFoundHandler);
+
+
+// common error handler
+app.use(errorHandler);
 
 
 
