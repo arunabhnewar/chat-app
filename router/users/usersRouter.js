@@ -12,10 +12,10 @@ const router = express.Router();
 
 
 // user page
-router.get('/', htmlResponse("Users"), getUsers);
+router.get("/", htmlResponse("Users"), getUsers);
 
 // add new user
-router.post('/', avatarUpload, addUserValidators, userValidationHandler, addUser)
+router.post("/", avatarUpload, addUserValidators, userValidationHandler, addUser)
 
 
 

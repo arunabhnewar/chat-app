@@ -5,22 +5,27 @@
             <h2>Create New User</h2>
         </div>
         <div class="modal-body">
-            <form id="add-user-form" method="post" action="/users" enctype="multipart/form-data">
+            <form id="add-user-form" method="POST" action="/users" enctype="multipart/form-data">
 
                 <input type="text" placeholder="enter name" name="name" />
                 <p class="error name-error"></p>
+                <!-- <p class="error "></p> -->
 
                 <input type="text" placeholder="enter email" name="email" />
                 <p class="error email-error"></p>
+                <!-- <p class="error "></p> -->
 
                 <input type="text" placeholder="enter mobile" name="mobile" />
                 <p class="error mobile-error"></p>
+                <!-- <p class="error "></p> -->
 
                 <input type="password" placeholder="enter password" name="password" />
                 <p class="error password-error"></p>
+                <!-- <p class="error "></p> -->
 
                 <input type="file" name="avatar" />
                 <p class="error avatar-error"></p>
+                <!-- <p class="error "></p> -->
 
                 <p class="error common-error"></p>
 
@@ -54,9 +59,9 @@
         event.preventDefault();
 
         // clear errors first
-        const errorPlaceholder = document.querySelectorAll("p.error");
-        for (let i = 0; i < errorPlaceholder.length; i++) {
-            errorPlaceholder[i].style.display = "none";
+        const errorPlaceholders = document.querySelectorAll("p.error");
+        for (let i = 0; i < errorPlaceholders.length; i++) {
+            errorPlaceholders[i].style.display = "none";
         }
 
         // clear input box
@@ -71,8 +76,8 @@
         const formData = new FormData(form);
 
         // send the request to server
-        let response = await fetch('/users', {
-            method: 'POST',
+        let response = await fetch("/users", {
+            method: "POST",
             body: formData,
         });
 

@@ -20,11 +20,8 @@ const addUserValidators = [
 
     // email
     check('email')
-        .notEmpty()
-        .withMessage("Email is required")
         .isEmail()
         .withMessage("Invalid email address")
-        .toLowerCase()
         .trim()
         .custom(async (value) => {
 
@@ -33,15 +30,13 @@ const addUserValidators = [
                 if (user) {
                     throw createError("Email already exists")
                 }
-            } catch (error) {
+            } catch (err) {
                 throw createError(err.message);
             }
         }),
 
     // mobile
     check('mobile')
-        .notEmpty()
-        .withMessage("Mobile is required")
         .isMobilePhone("bn-BD", {
             strictMode: true,
         })
@@ -54,15 +49,13 @@ const addUserValidators = [
                 if (user) {
                     throw createError("Mobile number already exists")
                 }
-            } catch (error) {
+            } catch (err) {
                 throw createError(err.message);
             }
         }),
 
     // password
     check('password')
-        .notEmpty()
-        .withMessage("Password is required")
         .isStrongPassword()
         .withMessage("Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol")
 ];

@@ -36,9 +36,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 // routing setup
-app.use('/', loginRouter);       // login router
-app.use('/users', usersRouter);   // user router
-app.use('/inbox', inboxRouter);   // inbox router
+app.use("/", loginRouter);       // login router
+app.use("/users", usersRouter);   // user router
+app.use("/inbox", inboxRouter);   // inbox router
 
 
 

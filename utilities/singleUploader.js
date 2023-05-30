@@ -1,3 +1,4 @@
+// external imports
 const multer = require("multer");
 const createError = require('http-errors');
 const path = require('path');
@@ -21,9 +22,9 @@ function uploader(
 
         filename: (req, file, cb) => {
             const fileExt = path.extname(file.originalname);
-            const filename = file.originalname.replace(fileExt, "").toLowerCase().split(" ").join("-") + "-" + Date.now();
+            const fileName = file.originalname.replace(fileExt, "").toLowerCase().split(" ").join("-") + "-" + Date.now();
 
-            cb(null, filename + fileExt);
+            cb(null, fileName + fileExt);
         },
     });
 
@@ -34,7 +35,7 @@ function uploader(
         limits: {
             fileSize: max_file_size
         },
-        filefilter: (req, file, cb) => {
+        fileFilter: (req, file, cb) => {
             if (allowed_file_types.includes(file.mimetype)) {
                 cb(null, true);
 
