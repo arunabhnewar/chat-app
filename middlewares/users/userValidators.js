@@ -63,7 +63,7 @@ const addUserValidators = [
 
 
 // user validation handle
-const userValidationHandler = (req, res, next) => {
+const userValidationHandler = function (req, res, next) {
     const errors = validationResult(req);
     const mappedErrors = errors.mapped();
 

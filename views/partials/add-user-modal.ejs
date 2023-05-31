@@ -5,7 +5,7 @@
             <h2>Create New User</h2>
         </div>
         <div class="modal-body">
-            <form id="add-user-form" method="POST" action="/users" enctype="multipart/form-data">
+            <form id="add-user-form" method="post" action="/users" enctype="multipart/form-data">
 
                 <input type="text" placeholder="enter name" name="name" />
                 <p class="error name-error"></p>
@@ -55,8 +55,9 @@
 
 
     // form submit handler
-    form.onSubmit = async function (event) {
-        event.preventDefault();
+    form.addEventListener("submit", async function (e) {
+        console.log(e);
+        e.preventDefault();
 
         // clear errors first
         const errorPlaceholders = document.querySelectorAll("p.error");
@@ -109,5 +110,5 @@
                 location.reload();
             }, 2000);
         }
-    };
+    })
 </script>

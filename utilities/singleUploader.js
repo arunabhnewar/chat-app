@@ -11,7 +11,7 @@ function uploader(
     error_msg) {
 
     // File Upload Folder
-    const UPLOADS_FOLDER = `${__dirname}/../public/uploads/${subfolder_path}`;
+    const UPLOADS_FOLDER = path.join(__dirname, `../public/uploads/${subfolder_path}`);
 
 
     // Define the storage
