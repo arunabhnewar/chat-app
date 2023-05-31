@@ -19,22 +19,61 @@
         </tr>
       </thead>
       <tbody id="users-table">
-        <tr id="">
+        <% users.forEach(function(user) { %>
+        <tr id="<%= user._id %>">
           <td class="name">
-            <img src="./assets/user1.png" />
-            <span>User 1</span>
+            <% if(user.avatar) { %>
+            <img src="./uploads/avatars/<%= user.avatar %>" />
+            <% } else { %>
+            <img src="./assets/nophoto.png" />
+            <% } %>
+            <span><%= user.name %></span>
           </td>
-          <td>email@email.com</td>
+          <td><%= user.email %></td>
           <td class="manage">
-            <img src="./assets/trash.png" alt="Delete" />
+            <img src="./assets/trash.png" alt="Delete" onclick="deleteUser('<%= user._id %>')" />
           </td>
         </tr>
+        <% }); %>
       </tbody>
     </table>
   </div>
 </div>
 
 <%- include('../partials/add-user-modal.ejs'); %>
+
+<script>
+  // toasts 
+  const deleteToast = Toastify({
+    text: "User was deleted successfully!!",
+    duration: 3000,
+  });
+
+
+  const deleteErrorToast = Toastify({
+    text: "Could not deleted the user!!",
+    duration: 3000,
+  });
+
+
+  // delete user function
+  async function deleteUser(userId) {
+    let response = await fetch(`/users/${userId}`, {
+      method: "DELETE",
+    });
+
+    console.log(response);
+    let result = await response.json();
+
+
+    if (result.errors) {
+      deleteErrorToast.showToast();
+    } else {
+      deleteToast.showToast();
+      document.getElementById(userId).remove();
+    }
+  }
+</script>
 </body>
 
 </html>

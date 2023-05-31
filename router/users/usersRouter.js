@@ -3,7 +3,7 @@ const express = require('express');
 
 
 // internal imports
-const { getUsers, addUser } = require('../../controller/usersController');
+const { getUsers, addUser, removeUser } = require('../../controller/usersController');
 const htmlResponse = require('../../middlewares/common/htmlResponse');
 const avatarUpload = require('../../middlewares/users/avatarUpload');
 const { addUserValidators, userValidationHandler } = require('../../middlewares/users/userValidators');
@@ -17,6 +17,8 @@ router.get("/", htmlResponse("Users"), getUsers);
 // add new user
 router.post("/", avatarUpload, addUserValidators, userValidationHandler, addUser)
 
+// remove existing user
+router.delete("/:id", removeUser)
 
 
 // module exports
