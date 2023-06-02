@@ -62,6 +62,9 @@ async function login(req, res, next) {
 
     } catch (err) {
         res.render("pages/index", {
+            data: {
+                username: req.body.username,
+            },
             errors: {
                 common: {
                     msg: err.message,
