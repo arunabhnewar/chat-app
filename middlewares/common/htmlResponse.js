@@ -1,5 +1,5 @@
-const htmlResponse = (page_title) => {
-    return (req, res, next) => {
+function htmlResponse(page_title) {
+    return function (req, res, next) {
 
         res.locals.html = true;
         res.locals.title = `${page_title} - ${process.env.APP_NAME}`;

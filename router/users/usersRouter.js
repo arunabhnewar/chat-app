@@ -7,15 +7,16 @@ const { getUsers, addUser, removeUser } = require('../../controller/usersControl
 const htmlResponse = require('../../middlewares/common/htmlResponse');
 const avatarUpload = require('../../middlewares/users/avatarUpload');
 const { addUserValidators, userValidationHandler } = require('../../middlewares/users/userValidators');
+const { checkLogin } = require('../../middlewares/common/checkLogin');
 
 const router = express.Router();
 
 
 // user page
-router.get("/", htmlResponse("Users"), getUsers);
+router.get("/", htmlResponse("Users"), checkLogin, getUsers);
 
 // add new user
-router.post("/", avatarUpload, addUserValidators, userValidationHandler, addUser)
+router.post("/", checkLogin, avatarUpload, addUserValidators, userValidationHandler, addUser)
 
 // remove existing user
 router.delete("/:id", removeUser)

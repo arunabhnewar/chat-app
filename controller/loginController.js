@@ -29,7 +29,8 @@ async function login(req, res, next) {
             if (isValidPassword) {
                 // prepare the user object to generate token
                 const userObject = {
-                    username: user.username,
+                    // username: user.username,
+                    username: user.name,
                     email: user.email,
                     mobile: user.mobile,
                     role: "user",
@@ -76,5 +77,12 @@ async function login(req, res, next) {
 
 
 
+// logout
+function logout(req, res, next) {
+    res.clearCookie(process.env.COOKIE_NAME);
+    res.send("logged out");
+}
+
+
 // module exports
-module.exports = { getLogin, login };
+module.exports = { getLogin, login, logout };
