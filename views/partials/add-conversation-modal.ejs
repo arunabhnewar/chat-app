@@ -21,13 +21,13 @@
     const modal = document.querySelector("#add-conversation-modal");
     // typing detector
     let typingTimer;
-    const doneTypingInterval = 1000;
+    const doneTypingInterval = 500;
     const input = document.querySelector("input#user");
     const conversationList = document.querySelector("#conversation-list");
     let users_placeholder = document.querySelector(".search_users");
 
     // conversation created failure toast
-    const conversationFailureToast = Toastfy({
+    const conversationFailureToast = Toastify({
         text: "Error creating a conversation!",
         duration: 1000,
     });
