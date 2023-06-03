@@ -1,4 +1,5 @@
 <%- include('../partials/header.ejs'); %>
+
 <div id="chat-container">
   <div id="search-container">
     <input type="text" placeholder="Search" />
@@ -15,7 +16,7 @@
       <img src="./assets/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.participant.name %></div>
-      <div class="conversation-date">Apr 16</div>
+      <div class="conversation-date">Apr 01</div>
     </div>
     <% } else { %>
     <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
@@ -25,7 +26,7 @@
       <img src="./assets/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.creator.name %></div>
-      <div class="conversation-date">Apr 16</div>
+      <div class="conversation-date">Apr 01</div>
     </div>
     <% } %>
     <% }); %>
@@ -36,7 +37,7 @@
     <% } %>
   </div>
 
-  <div id="new-message-container" onclick="openModal()">
+  <div class="new-message-container" onclick="openModal()">
     <a href="#">+</a>
   </div>
 
@@ -56,9 +57,8 @@
     <input type="file" multiple name="attachment" class="hide" id="attachment" />
     <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
   </form>
+
 </div>
-
-
 
 <%- include('../partials/add-conversation-modal.ejs')  %>
 
