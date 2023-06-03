@@ -66,7 +66,37 @@ async function searchUser(req, res, next) {
 
 
 
+// add conversation
+async function addConversation(req, res, next) {
+    try {
+        const newConversation = new Conversation({
+            creator: {
+                id: req.user.userid,
+                name: res.user.username,
+                avatar: req.user.avatar,
+            },
+            participant: {
+                id: req.body.id,
+                name: req.body.participant,
+                avatar: req.body.avatar || null,
+            },
+        });
 
+        const result = await newConversation.save();
+        res.status(200).json({
+            message: "Conversation was added successfully!",
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            errors: {
+                common: {
+                    msg: err.message,
+                },
+            },
+        });
+    }
+}
 
 // module exports
-module.exports = { getInbox, searchUser };
+module.exports = { getInbox, searchUser, addConversation };
