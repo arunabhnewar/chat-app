@@ -16,6 +16,7 @@ const page_title = "Login";
 
 // login page
 router.get('/', htmlResponse(page_title), redirectLoggedIn, getLogin);
+// router.get('/', htmlResponse(page_title), getLogin);
 
 // process login
 router.post("/", htmlResponse(page_title), loginValidators, loginValidationHandler, login);

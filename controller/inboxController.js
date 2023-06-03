@@ -32,7 +32,7 @@ async function searchUser(req, res, next) {
 
     const name_search_regex = new RegExp(escape(searchQuery), "i");
     const mobile_search_regex = new RegExp("^" + escape("+88" + searchQuery));
-    const email_search_regex = new RegExp("^" + escape(searchQuery) + "$" + "i");
+    const email_search_regex = new RegExp("^" + escape(searchQuery) + "$", "i");
 
 
     try {
@@ -72,8 +72,8 @@ async function addConversation(req, res, next) {
         const newConversation = new Conversation({
             creator: {
                 id: req.user.userid,
-                name: res.user.username,
-                avatar: req.user.avatar,
+                name: req.user.username,
+                avatar: req.user.avatar || null,
             },
             participant: {
                 id: req.body.id,
@@ -96,7 +96,9 @@ async function addConversation(req, res, next) {
             },
         });
     }
-}
+};
+
+
 
 // module exports
 module.exports = { getInbox, searchUser, addConversation };

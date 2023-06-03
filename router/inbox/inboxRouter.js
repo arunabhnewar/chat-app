@@ -11,15 +11,18 @@ const router = express.Router();
 
 
 // login page
-router.get('/', htmlResponse("Inbox"), checkLogin, getInbox);
+router.get("/", htmlResponse("Inbox"), checkLogin, getInbox);
 
 
 // search user for conversation
-router.post('/search', checkLogin, searchUser);
+router.post("/search", checkLogin, searchUser);
 
 
 // add conversation
-router.post('/addConversation', checkLogin, addConversation);
+router.post("/conversation", checkLogin, addConversation);
+
+
+
 
 // module exports
 module.exports = router;

@@ -14,9 +14,11 @@ const router = express.Router();
 
 // user page
 router.get("/", htmlResponse("Users"), checkLogin, getUsers);
+// router.get("/", htmlResponse("Users"), getUsers);
 
 // add new user
 router.post("/", checkLogin, avatarUpload, addUserValidators, userValidationHandler, addUser)
+// router.post("/", avatarUpload, addUserValidators, userValidationHandler, addUser)
 
 // remove existing user
 router.delete("/:id", removeUser)

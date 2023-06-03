@@ -1,9 +1,9 @@
 <%- include('../partials/header.ejs'); %>
-
 <div id="chat-container">
   <div id="search-container">
     <input type="text" placeholder="Search" />
   </div>
+
   <div id="conversation-list">
     <% data.forEach(function(conversation) { %>
     <!-- conversation creator is same to logged in user, so we need to show participant name and avatar -->
@@ -15,7 +15,7 @@
       <img src="./assets/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.participant.name %></div>
-      <div class="conversation-date"><%= moment(conversation.last_updated).fromNow() %></div>
+      <div class="conversation-date">Apr 16</div>
     </div>
     <% } else { %>
     <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
@@ -25,7 +25,7 @@
       <img src="./assets/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.creator.name %></div>
-      <div class="conversation-date"><%= moment(conversation.last_updated).fromNow() %></div>
+      <div class="conversation-date">Apr 16</div>
     </div>
     <% } %>
     <% }); %>
@@ -36,7 +36,7 @@
     <% } %>
   </div>
 
-  <div class="new-message-container" onclick="openModal()">
+  <div id="new-message-container" onclick="openModal()">
     <a href="#">+</a>
   </div>
 
@@ -56,8 +56,9 @@
     <input type="file" multiple name="attachment" class="hide" id="attachment" />
     <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
   </form>
-
 </div>
+
+
 
 <%- include('../partials/add-conversation-modal.ejs')  %>
 
