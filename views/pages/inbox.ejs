@@ -5,12 +5,6 @@
     <input type="text" placeholder="Search" />
   </div>
   <div id="conversation-list">
-    <div class="conversation active">
-      <img src="./assets/user1.png" alt="Sumit" />
-      <div class="title-text">Sumit Saha</div>
-      <di class="created-date"> Apr 16 </di>
-      <div class="conversation-message">This is a message</div>
-    </div>
     <div class="conversation">
       <img src="./assets/user2.png" alt="Sumit" />
       <div class="title-text">Sumit Saha</div>
@@ -25,42 +19,19 @@
     <span>Sumit</span>
     <img src="./assets/trash.png" alt="Delete Conversation" />
   </div>
+  <!-- placeholder div if no messages are in messages area -->
   <div id="chat-message-list">
-    <div class="message-row other-message">
-      <div class="message-content">
-        <img src="./assets/user1.png" alt="Sumit" />
-        <div class="message-text">Ok then</div>
-        <div class="message-time">Apr 16</div>
-      </div>
-    </div>
-    <div class="message-row you-message">
-      <div class="message-content">
-        <div class="message-text">Lorem ipsum dolor sit amet</div>
-        <div class="message-time">Apr 16</div>
-      </div>
-    </div>
+    <div class="nothing">select a conversation</div>
   </div>
-  <div id="chat-form">
-    <img src="./assets/attachment.png" alt=Add Attachment"" />
-    <input type="text" placeholder="Type a message" />
-  </div>
+  <!-- send message form -->
+  <form id="chat-form" method="post" enctype="multipart/form-data">
+    <label for="attachment"><img src="./asstes/attachment.png" alt="Add Attachment" /></label>
+    <input type="file" multiple name="attachment" class="hide" id="attachment" />
+    <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
+  </form>
 </div>
 
-<div class="modal-wrapper">
-  <div class="modal">
-    <a href="#" class="modal-close">+</a>
-    <div class="modal-title">
-      <h2>Create New Conversation</h2>
-    </div>
-    <div class="modal-body">
-      <form>
-        <input type="text" placeholder="Name" />
-        <input type="text" placeholder="Username" />
-        <input type="button" value="Submit" />
-      </form>
-    </div>
-  </div>
-</div>
+<%- include('../partials/add-conversation-modal.ejs')  %>
 </body>
 
 </html>
