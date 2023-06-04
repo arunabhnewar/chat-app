@@ -6,6 +6,7 @@ const createError = require("http-errors");
 const Conversation = require("../models/Conversation");
 const User = require("../models/People");
 const escape = require("../utilities/escape");
+const Message = require("../models/Message");
 
 
 
@@ -100,5 +101,51 @@ async function addConversation(req, res, next) {
 
 
 
+// get messages of a conversation
+async function getMessages(req, res, next) {
+    try {
+        const messages = await Message.find({
+            conversation_id: req.params.conversation_id,
+        }).sort("-createdAt");
+
+        const { participant } = await Conversation.findById(req.params.conversation_id);
+
+        res.status(200).json({
+            data: {
+                messages: messages,
+                participant,
+            },
+
+            user: req.user.userid,
+            conversation_id: req.params.conversation_id,
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            errors: {
+                common: {
+                    msg: "Unknown error occurred!",
+                },
+            },
+        });
+    }
+};
+
+
+
+// send new message
+async function sendMessage(req, res, next) {
+    if (req.body.message || (req.files && req.files.length > 0)) {
+
+        try {
+            // save message text/attachment in database
+
+        } catch (err) {
+
+        }
+    }
+};
+
+
 // module exports
-module.exports = { getInbox, searchUser, addConversation };
+module.exports = { getInbox, searchUser, addConversation, getMessages, sendMessage };
