@@ -179,10 +179,18 @@ async function sendMessage(req, res, next) {
         } catch (err) {
             res.status(500).json({
                 errors: {
-                    common: "message text or attachment is required!",
+                    common: {
+                        msg: err.message,
+                    },
                 },
             });
         }
+    } else {
+        res.status(500).json({
+            errors: {
+                common: "message text or attachment is required!",
+            },
+        });
     }
 };
 

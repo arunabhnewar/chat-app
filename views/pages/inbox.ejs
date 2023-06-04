@@ -69,8 +69,10 @@
   const form = document.querySelector("#chat-form");
   let participant = null;       // selected conversation participant object
   let current_conversation_id;   // selected conversation id
-  const loggedInUserId = "<%= loggedInUser.userid %>";
-  const loggedInUserName = "<%= loggedInUser.username %>";
+  const loggedinUserId = "<%= loggedInUser.userid %>";
+  const loggedinUserName = "<%= loggedInUser.username %>";
+  const messageContainer = document.querySelector('#chat-message-list');
+  const chatTitleContainer = document.querySelector('#conversation-partner');
 
 
   // get messages of a conversation
@@ -95,11 +97,11 @@
         let allMessages = "";
 
         if (data.messages.length > 0) {
-          data.messages.forEach((message) => {
 
+          data.messages.forEach((message) => {
             let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : "./assets/nophoto.png";
-            const messageClass = message.sender.id === loggedInUserId ? 'you-message' : 'other-message';
-            const showAvatar = message.sender.id === loggedInUserId ? "" : `<img src="${senderAvatar}" alt="${message.sender.name}" />`;
+            const messageClass = message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
+            const showAvatar = message.sender.id === loggedinUserId ? "" : `<img src="${senderAvatar}" alt="${message.sender.name}" />`;
 
 
             // message attachments
@@ -125,10 +127,10 @@
             </div>`;
 
             allMessages += messageHTML;
-            messageContainer.innerHTML = "<div class='message-row'></div>";
+            messageContainer.innerHTML = allMessages;
           });
 
-        } else if (data.message.length === 0) {
+        } else if (data.messages.length === 0) {
           messageContainer.innerHTML = "<div class='message-row'></div>";
         }
 

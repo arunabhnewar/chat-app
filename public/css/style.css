@@ -585,7 +585,7 @@ input[type="submit"]:active {
 #left-column {
   grid-area: left-column;
   background-color: var(--tertiary);
-  background-image: url("../images/illustration.png");
+  background-image: url("../assets/illustration.png");
   background-size: 68%;
   background-position: center;
   background-repeat: no-repeat;
