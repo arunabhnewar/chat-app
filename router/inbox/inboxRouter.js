@@ -2,7 +2,7 @@
 const express = require('express');
 
 // internal imports
-const { getInbox, searchUser, addConversation, getMessages } = require('../../controller/inboxController')
+const { getInbox, searchUser, addConversation, getMessages, sendMessage } = require('../../controller/inboxController')
 const htmlResponse = require('../../middlewares/common/htmlResponse');
 const { checkLogin } = require('../../middlewares/common/checkLogin');
 
@@ -25,6 +25,9 @@ router.post("/conversation", checkLogin, addConversation);
 // get messages of a conversation
 router.get("/messages/:conversation_id", checkLogin, getMessages)
 
+
+// send message
+router.post("/message", checkLogin, sendMessage);
 
 // module exports
 module.exports = router;

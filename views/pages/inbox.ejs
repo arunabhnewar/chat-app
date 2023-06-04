@@ -141,6 +141,41 @@
   };
 
 
+  // message sending
+  form.onsubmit = async function (e) {
+    e.preventDefault();
+
+    // toast message
+    const sendMessageFailureToast = Toastify({
+      text: "Error sending message",
+      duration: 1000,
+    });
+
+
+    // prepare the form data
+    const formData = new FormData(form);
+    formData.append("receiverId", participant.id);
+    formData.append("receiverName", participant.name);
+    formData.append("avatar", participant.avatar || "");
+    formData.append("conversationId", current_conversation_id);
+
+    // send the request to server
+    let response = await fetch("/inbox/message", {
+      method: "POST",
+      body: formData,
+    });
+
+    // get response
+    let result = await response.json();
+
+    if (!result.errors) {
+      form.reset();     // reset the form
+    } else {
+      sendMessageFailureToast.showToast();
+    }
+
+  };
+
 </script>
 
 </body>
