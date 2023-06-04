@@ -13,27 +13,27 @@
       <% if (conversation.participant.avatar) { %>
       <img src="./uploads/avatars/<%= conversation.participant.avatar %>" alt="<%= conversation.participant.name %>" />
       <% } else { %>
-      <img src="./assets/nophoto.png" />
+      <img src="./images/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.participant.name %></div>
-      <div class="conversation-date">Apr 01</div>
+      <div class="conversation-date"><%= moment(conversation.last_updated).fromNow() %></div>
     </div>
     <% } else { %>
     <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
       <% if (conversation.creator.avatar) { %>
       <img src="./uploads/avatars/<%= conversation.creator.avatar %>" alt="<%= conversation.creator.name %>" />
       <% } else { %>
-      <img src="./assets/nophoto.png" />
+      <img src="./images/nophoto.png" />
       <% } %>
       <div class="title-text"><%= conversation.creator.name %></div>
-      <div class="conversation-date">Apr 01</div>
+      <div class="conversation-date"><%= moment(conversation.last_updated).fromNow() %></div>
     </div>
     <% } %>
     <% }); %>
 
     <!-- show no conversation placeholder image for 0 conversations -->
     <% if(data && data.length === 0) { %>
-    <div class="nothing"><img src="./assets/no-conversation.svg"></div>
+    <div class="nothing"><img src="./images/no-conversation.svg"></div>
     <% } %>
   </div>
 
@@ -73,6 +73,62 @@
   const loggedinUserName = "<%= loggedInUser.username %>";
   const messageContainer = document.querySelector('#chat-message-list');
   const chatTitleContainer = document.querySelector('#conversation-partner');
+
+
+  // socket initialization
+  const socket = io('<%= process.env.APP_URL %>');
+
+
+  // handle new/live incoming message from socket
+  socket.on("new_message", data => {
+    // only respond if current conversation is open in any client
+    if (data.message.conversation_id == current_conversation_id) {
+
+      // message class
+      const messageClass = data.message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
+      const senderAvatar = data.message.sender.avatar ? `<img src="./uploads/avatars/${data.message.sender.avatar}" alt="${data.message.sender.name}"/>` : `<img src="./assets/nophoto.png" alt="${data.message.sender.name}"/>`;
+
+      // message attachments
+      let attachments = '<div class="attachments">';
+
+      if (data.message.attachment && data.message.attachment.length > 0) {
+        data.message.attachment.forEach(attachment => {
+          attachments += `<img src="./uploads/attachments/${attachment}" />`;
+        });
+      };
+
+      attachments += '</div>';
+      let messageHTML;
+
+      // do not show avatar for loggedIn user
+      if (data.message.sender.id === loggedinUserId) {
+        messageHTML = `
+        <div class="message-row ${messageClass}">
+          <div class="message-content">
+            <div class="message-text">${data.message.message}</div>
+            ${attachments}
+            <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
+          </div>
+        </div>`;
+
+      } else {
+        messageHTML = `
+        <div class="message-row ${messageClass}">
+          <div class="message-content">
+            ${senderAvatar}
+            <div class="message-text">${data.message.message}</div>
+            ${attachments}
+            <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
+          </div>
+        </div>`;
+      };
+
+
+      // append the inoming message to message area as last item
+      document.querySelector('#chat-message-list > .message-row:first-child').insertAdjacentHTML('beforeBegin', messageHTML);
+    }
+  });
+
 
 
   // get messages of a conversation

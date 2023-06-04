@@ -167,8 +167,21 @@ async function sendMessage(req, res, next) {
 
             const result = await newMessage.save();
 
-            // emit socket event
 
+            // emit socket event
+            global.io.emit("new_message", {
+                message: {
+                    conversation_id: req.body.conversationId,
+                    sender: {
+                        id: req.user.userid,
+                        name: req.user.username,
+                        avatar: req.user.avatar || null,
+                    },
+                    message: req.body.message,
+                    attachment: attachments,
+                    date_time: result.date_time,
+                },
+            });
 
 
             res.status(200).json({
